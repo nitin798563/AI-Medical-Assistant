@@ -391,3 +391,8 @@ Continue to the NextJS guide -
 
 ### For logo
 for logo - use logoipsum (https://logoipsum.com/)
+
+For AI LL Model - use OpenRouter (https://openrouter.ai/)
+ OpenRouter provide a variety of different AI LLM Models(e.g. Chatgpt, openai, google gemini, etc)
+
+for UniqueSessionID - use uuid (https://www.npmjs.com/package/uuid)
