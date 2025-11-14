@@ -27,14 +27,14 @@ import {v4 as uuidv4} from "uuid";
 
 
 
-// export async function GET(req: NextRequest){
-//     const {searchParams} = new URL(req.url);
-//     const sessionId= searchParams.get("sessionId");
-//     const user = await currentUser();
+export async function GET(req: NextRequest){
+    const {searchParams} = new URL(req.url);
+    const sessionId= searchParams.get("sessionId");
+    const user = await currentUser();
 
-//     const result = await db.select().from(sessionChatTable)
+    const result = await db.select().from(SessionChatTable)
 
-//         .where(eq(sessionChatTable.sessionId, sessionId!));
+        .where(eq(SessionChatTable.sessionId, sessionId!));
 
-//         return NextResponse.json(result[0]);
-// }
+        return NextResponse.json(result[0]);
+}

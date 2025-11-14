@@ -17,12 +17,14 @@ import axios from 'axios'
 import type { doctorAgent } from './DoctorAgentCard'
 import DoctorAgentCard from './DoctorAgentCard'
 import SugggestedDoctorCard from './SugggestedDoctorCard'
+import {  useRouter } from 'next/navigation'
 
 const AddNewSessionDailog = () => {
   const [note, setNote] = useState<string>();
   const [loading, setLoading] = useState(false);
   const [suggestedDoctors, setSuggestedDoctors] = useState<doctorAgent[]>();
   const [selectedDoctor, setSelectedDoctor] = useState<doctorAgent>();
+  const router = useRouter();
 
   const onClickNext = async () => {
     setLoading(true);
@@ -53,6 +55,7 @@ const AddNewSessionDailog = () => {
       console.log(result.data.sessionId)
 
       // redirect to chat page
+      router.push("/dashboard/medical-agent/"+result.data.sessionId)
     }
     setLoading(false);
   }
