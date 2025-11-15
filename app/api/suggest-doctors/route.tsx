@@ -28,6 +28,7 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
 
     const { notes } = await req.json();
+    
     try {
         const completion = await openai.chat.completions.create({
   model: "google/gemma-3-4b-it:free",
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest) {
       notes +
       ". Based on the user notes and symptoms, please suggest a list of doctors. " +
       "For each doctor, return a JSON object with these fields: " +
-      "agentPrompt,id,description, specialist, image (URL of doctor image). " +
+      "agentPrompt,id,description, specialist, image (URL of doctor image), voiceId. " +
       "Return the result as a valid JSON array only, no extra text or markdown."
   },
 ],
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
         //@ts-ignore
         const Resp = rawResp&&rawResp.content.trim().replace("```json", "").replace("```", "");
         const JSONResp=JSON.parse(Resp);
+        
         return NextResponse.json(JSONResp);
         
     } catch (e) {

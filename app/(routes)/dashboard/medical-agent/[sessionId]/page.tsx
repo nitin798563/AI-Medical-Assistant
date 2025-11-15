@@ -60,7 +60,7 @@ const VapiAgentConfig = {
   
   voice:{
       provider:"vapi",
-      voiceId:sessionDetail?.selectedDoctor?.voiceId || "Neha"
+      voiceId:sessionDetail?.selectedDoctor?.voiceId 
       
   },
   
