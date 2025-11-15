@@ -48,15 +48,38 @@ function MedicalVoiceAgent() {
     const vapi = new Vapi(process.env.NEXT_PUBLIC_VAPI_API_KEY!);
     setVapiInstance(vapi)
 
+
 const VapiAgentConfig = {
   name:"AI Medical Doctor Voice Agent",
   firstMessage:"Hi there! I'm your AI Medical Assistant. I'm here to help you with any health questions or concerns you right have today. How are you feeling? ",
   transcriber:{
-    provider:"assesmbly-ai"
+    provider:"assembly-ai",
+    language:'en'
+  },
+  
+  
+  voice:{
+      provider:"vapi",
+      voiceId:sessionDetail?.selectedDoctor?.voiceId || "Neha"
+      
+  },
+  
+
+  model:{
+provider:"openai",
+model:'gpt-4',
+messages:[
+  {
+    role:"system",
+    content:sessionDetail?.selectedDoctor?.agentPrompt
   }
+]
+  }
+  
 }
 
-    vapi.start(process.env.NEXT_PUBLIC_VAPI_VOICE_ASSISTANT_ID);
+//@ts-ignore
+    vapi.start(VapiAgentConfig);
     vapi.on('call-start', () => {
       console.log('Call started')
       setCallStarted(true);
@@ -124,7 +147,7 @@ const VapiAgentConfig = {
           className='h-[100px] w-[100px] object-cover rounded-full ' />
         <h2 className='mt-2 text-lg '>{sessionDetail?.selectedDoctor?.specialist}</h2>
         <p className='text-sm text-gray-400'>AI Medical Voice Agent</p>
-        <div className='mt-12 overflow-y-auto flex flex-col items-center px-10 md:px-20 lg:px-52 xl:px-72'>
+        <div className='mt-12 overflow-y-auto flex flex-col items-center px-10 md:px-28 lg:px-52 xl:px-72'>
           {messages?.slice(-4).map((msg: messages, index) => (
 
             <h2 className='text-gray-400 p-2' key={index}>{msg.role} {msg.text}</h2>
